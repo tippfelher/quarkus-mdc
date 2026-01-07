@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class KafkaEmitterTest {
 
     @Inject
-    EventProducer producer;
+    HandsomeService handsomeService;
 
     @Inject
     ReceivedMessages received;
@@ -30,8 +30,7 @@ class KafkaEmitterTest {
 
     @Test
     void emitter_sendet_nach_kafka_und_consumer_empfaengt() {
-        MDC.put("username", "admin");
-        producer.emit("hello-kafka");
+        handsomeService.test();
         assertEquals("admin", MDC.get("username"));
 
         await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
