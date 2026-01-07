@@ -34,8 +34,9 @@ class KafkaEmitterTest {
         producer.emit("hello-kafka");
         assertEquals("admin", MDC.get("username"));
 
-        await().atMost(Duration.ofSeconds(10)).untilAsserted(() ->
-            assertTrue(received.snapshot().contains("hello-kafka"))
-        );
+        await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+            assertTrue(received.snapshot().contains("hello-kafka"));
+            assertEquals("admin", MDC.get("username"));
+        });
     }
 }
